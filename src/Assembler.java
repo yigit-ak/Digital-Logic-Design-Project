@@ -200,5 +200,41 @@ public class Assembler {
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1]) + "000000"
                 + registerMap.get(instructionArray[2]);
     }
+    public static String jump(String inst) {
+        String[] instructionArray = inst.split(" ");
+        return instructionMap.get(instructionArray[0]) + "0000" 
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+    }
+
+    public static String je(String inst) {
+        String[] instructionArray = inst.split(" ");
+        return instructionMap.get(instructionArray[0]) + "0000" 
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+    }
+
+    public static String ja(String inst) {
+        String[] instructionArray = inst.split(" ");
+        return instructionMap.get(instructionArray[0]) + "0000" 
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+    }
+
+    public static String jb(String inst) {
+        String[] instructionArray = inst.split(" ");
+        return instructionMap.get(instructionArray[0]) + "0000" 
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+    }
+
+    public static String jae(String inst) {
+        String[] instructionArray = inst.split(" ");
+        return instructionMap.get(instructionArray[0]) + "0000" 
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+    }
+
+    public static String jbe(String inst) {
+        String[] instructionArray = inst.split(" ");
+        return instructionMap.get(instructionArray[0]) + "0000" 
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+    }
+
 
 }
