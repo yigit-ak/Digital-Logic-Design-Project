@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class Assembler {
      static Map<String, String> instructionMap = new HashMap<String, String>();
      static Map<String, String> registerMap = new HashMap<String, String>();
-     static String inputFileName = "C:\\Users\\Servisport\\input.txt";
-     static String outputFileName = "C:\\Users\\Servisport\\output.txt";
+     static String inputFileName = "input.txt";
+     static String outputFileName = "output.txt";
 
     public static void main(String[] args) {
         ArrayList<String> instructions = new ArrayList<>();
