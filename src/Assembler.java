@@ -9,9 +9,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Assembler {
-    Map<String, String> instructionMap = new HashMap<String, String>();
-    Map<String, String> registerMap = new HashMap<String, String>();
-    static String fileName = "output.txt";
+     static Map<String, String> instructionMap = new HashMap<String, String>();
+     static Map<String, String> registerMap = new HashMap<String, String>();
+     static String inputFileName = "input.txt";
+     static String outputFileName = "output.txt";
 
     public static void main(String[] args) {
         ArrayList<String> instructions = new ArrayList<>();
@@ -21,7 +22,8 @@ public class Assembler {
         setsMaps();
 
         // get instructions from file
-        getInstructionsFromFile("input.txt");
+        instructions = getInstructionsFromFile(inputFileName);
+        System.out.println(instructions); 
 
         // convert assembly instructions into binary code
         for (int i = 0; i < instructions.size(); i++) {
@@ -37,7 +39,7 @@ public class Assembler {
 
         // write the hexadecimal instructions into the output file
         try {
-            writeToOutputFile(fileName, hexadecimalInstructions);
+            writeToOutputFile(outputFileName, hexadecimalInstructions);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,6 +83,21 @@ public class Assembler {
     }
 
     public static ArrayList<String> getInstructionsFromFile(String fileName) {
+        ArrayList<String> instructionSet = new ArrayList<String>();
+
+        try {
+            File myObj = new File(fileName);
+            Scanner myReader = new Scanner(myObj);
+        while (myReader.hasNextLine()) {
+            String data = myReader.nextLine();
+            instructionSet.add(data);
+        }
+        myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+            return instructionSet; 
     }
 
     public static String instructionToBinary(String instruction) {
@@ -122,13 +139,13 @@ public class Assembler {
         }
     }
 
-    public static String binaryToHex(String binary) {
+    public static  String binaryToHex(String binary) {
         int decimal = Integer.parseInt(binary, 2);
         String hexadecimal = Integer.toString(decimal, 16);
         return hexadecimal;
     }
 
-    public static void writeToOutputFile(String fileName, ArrayList<String> hexList) throws IOException {
+    public static  void writeToOutputFile(String fileName, ArrayList<String> hexList) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));) {
             writer.write("v2.0 raw\n");
             for (String hex : hexList)
@@ -139,42 +156,42 @@ public class Assembler {
         }
     }
 
-    public String add(String instruction) {
+    public static String add(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
                 + registerMap.get(instructionText[3]);
     }
 
-    public String and(String instruction) {
+    public static String and(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
                 + registerMap.get(instructionText[3]);
     }
 
-    public String nand(String instruction) {
+    public static String nand(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
                 + registerMap.get(instructionText[3]);
     }
 
-    public String nor(String instruction) {
+    public static String nor(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
                 + registerMap.get(instructionText[3]);
     }
 
-    public String addi(String instruction) {
+    public static String addi(String instruction) {
         String[] instructionArray = instruction.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
                 + registerMap.get(instructionArray[2])
                 + Integer.toBinaryString(Integer.parseInt(instructionArray[3].substring(1)));
     }
 
-    public String andi(String instruction) {
+    public static String andi(String instruction) {
         String[] instructionArray = instruction.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
                 + registerMap.get(instructionArray[2])
@@ -183,57 +200,57 @@ public class Assembler {
 
     // we're assuming that the offset will be written as a hashtag followed by a
     // number: #DEC_NUMBER, thus we'll skip the hashtag
-    public String LD(String inst) {
+    public static String ld(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
                 + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
     }
 
-    public String ST(String inst) {
+    public static String st(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
                 + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
     }
 
-    public String CMP(String inst) {
+    public static String cmp(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1]) + "000000"
                 + registerMap.get(instructionArray[2]);
     }
-    public static String jump(String inst) {
+    public static  String jump(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
     }
 
-    public static String je(String inst) {
+    public static  String je(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
     }
 
-    public static String ja(String inst) {
+    public static  String ja(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
     }
 
-    public static String jb(String inst) {
+    public static  String jb(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
     }
 
-    public static String jae(String inst) {
+    public static  String jae(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
     }
 
-    public static String jbe(String inst) {
+    public static  String jbe(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
     }
 
 
