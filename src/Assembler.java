@@ -143,7 +143,8 @@ public class Assembler {
         int decimal = Integer.parseInt(binary, 2);
         String hexadecimal = Integer.toString(decimal, 16);
 
-        for (int i = 0; i < 5 - hexadecimal.length(); i++) {
+        int zeroesToAdd = 5 - hexadecimal.length();
+        for (int i = 0; i < zeroesToAdd; i++) {
             hexadecimal = "0" + hexadecimal;
         }
 
