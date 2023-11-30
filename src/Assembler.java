@@ -139,9 +139,15 @@ public class Assembler {
         }
     }
 
-    public static  String binaryToHex(String binary) {
+
+    public static String binaryToHex(String binary) {
         int decimal = Integer.parseInt(binary, 2);
         String hexadecimal = Integer.toString(decimal, 16);
+
+        int zeroesToAdd = 5 - hexadecimal.length();
+        for (int i = 0; i < zeroesToAdd; i++) {
+            hexadecimal = "0" + hexadecimal;
+        }
         return hexadecimal;
     }
 
@@ -203,14 +209,15 @@ public class Assembler {
     public static String ld(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+                + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)))).replace(' ', '0');
     }
 
     public static String st(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)));
+        return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1]) 
+            + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)))).replace(' ', '0');
     }
+
 
     public static String cmp(String inst) {
         String[] instructionArray = inst.split(" ");
@@ -219,38 +226,32 @@ public class Assembler {
     }
     public static  String jump(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
+        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
     }
 
     public static  String je(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
+        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
     }
 
     public static  String ja(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
+        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
     }
 
     public static  String jb(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
+        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
     }
 
     public static  String jae(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
+        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
     }
 
     public static  String jbe(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000" 
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)));
+        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
     }
 
 
