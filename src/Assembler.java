@@ -23,7 +23,6 @@ public class Assembler {
 
         // get instructions from file
         instructions = getInstructionsFromFile(inputFileName);
-        System.out.println(instructions); 
 
         // convert assembly instructions into binary code
         for (int i = 0; i < instructions.size(); i++) {
@@ -167,7 +166,7 @@ public class Assembler {
                 String intToBinary = Integer.toBinaryString(Integer.parseInt(address.substring(1)));
                 String num = " ";
                 if(intToBinary.length() > 10) {
-                    num = intToBinary.substring(22, 32);
+                    num = intToBinary.substring(26, 32);
                 } 
                return num;
             }
@@ -178,28 +177,28 @@ public class Assembler {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
-                + registerMap.get(instructionText[3]);
+                + "00" + registerMap.get(instructionText[3]);
     }
 
     public static String and(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
-                + registerMap.get(instructionText[3]);
+                + "00" + registerMap.get(instructionText[3]);
     }
 
     public static String nand(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
-                + registerMap.get(instructionText[3]);
+                + "00" + registerMap.get(instructionText[3]);
     }
 
     public static String nor(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
         return opcode + registerMap.get(instructionText[1]) + registerMap.get(instructionText[2])
-                + registerMap.get(instructionText[3]);
+                + "00" + registerMap.get(instructionText[3]);
     }
 
     public static String addi(String instruction) {
@@ -265,6 +264,4 @@ public class Assembler {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
-
-
 }
