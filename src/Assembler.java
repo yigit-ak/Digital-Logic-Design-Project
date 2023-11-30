@@ -163,7 +163,7 @@ public class Assembler {
     }
      public static String addressToBinary(String address){
             if(address.startsWith("-")){
-                String intToBinary = Integer.toBinaryString(Integer.parseInt(address));
+                String intToBinary = Integer.toBinaryString(Integer.parseInt(address.substring(1)));
                 String num = " ";
                 if(intToBinary.length() > 10) {
                     num = intToBinary.substring(22, 32);
