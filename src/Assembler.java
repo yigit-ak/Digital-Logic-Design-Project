@@ -151,7 +151,7 @@ public class Assembler {
         return hexadecimal;
     }
 
-    public static  void writeToOutputFile(String fileName, ArrayList<String> hexList) throws IOException {
+    public static void writeToOutputFile(String fileName, ArrayList<String> hexList) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));) {
             writer.write("v2.0 raw\n");
             for (String hex : hexList)
@@ -161,7 +161,18 @@ public class Assembler {
             e.getMessage();
         }
     }
-
+     public static String addressToBinary(String address){
+            if(address.startsWith("-")){
+                String intToBinary = Integer.toBinaryString(Integer.parseInt(address));
+                String num = " ";
+                if(intToBinary.length() > 10) {
+                    num = intToBinary.substring(22, 32);
+                } 
+               return num;
+            }
+                return String.format("%10s", Integer.toBinaryString(Integer.parseInt(address.substring(1)))).replace(' ', '0');
+            
+    }
     public static String add(String instruction) {
         String[] instructionText = instruction.split(" ");
         String opcode = instructionMap.get(instructionText[0]);
