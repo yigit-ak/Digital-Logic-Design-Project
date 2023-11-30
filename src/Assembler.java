@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class Assembler {
      static Map<String, String> instructionMap = new HashMap<String, String>();
      static Map<String, String> registerMap = new HashMap<String, String>();
-     static String inputFileName = "input.txt";
-     static String outputFileName = "output.txt";
+     static String inputFileName = "C:\\Users\\Servisport\\input.txt";
+     static String outputFileName = "C:\\Users\\Servisport\\output.txt";
 
     public static void main(String[] args) {
         ArrayList<String> instructions = new ArrayList<>();
@@ -161,8 +161,9 @@ public class Assembler {
             e.getMessage();
         }
     }
-     public static String addressToBinary(String address){
-            if(address.startsWith("-")){
+     // Convert immediate values to binary(considering negative values)
+    public static String decimalToBinary(String address){
+            if(address.charAt(1) == '-'){
                 String intToBinary = Integer.toBinaryString(Integer.parseInt(address.substring(1)));
                 String num = " ";
                 if(intToBinary.length() > 10) {
@@ -205,14 +206,14 @@ public class Assembler {
         String[] instructionArray = instruction.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
                 + registerMap.get(instructionArray[2])
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[3].substring(1)));
+                + decimalToBinary(instructionArray[3]);
     }
 
     public static String andi(String instruction) {
         String[] instructionArray = instruction.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
                 + registerMap.get(instructionArray[2])
-                + Integer.toBinaryString(Integer.parseInt(instructionArray[3].substring(1)));
+                + decimalToBinary(instructionArray[3]);
     }
 
     // we're assuming that the offset will be written as a hashtag followed by a
@@ -220,13 +221,13 @@ public class Assembler {
     public static String ld(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1])
-                + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)))).replace(' ', '0');
+                + decimalToBinary(instructionArray[2]);
     }
 
     public static String st(String inst) {
         String[] instructionArray = inst.split(" ");
         return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1]) 
-            + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[2].substring(1)))).replace(' ', '0');
+            + decimalToBinary(instructionArray[2]);
     }
 
 
@@ -237,32 +238,32 @@ public class Assembler {
     }
     public static  String jump(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
+        return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
 
     public static  String je(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
+        return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
 
     public static  String ja(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
+        return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
 
     public static  String jb(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
+        return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
 
     public static  String jae(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
+        return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
 
     public static  String jbe(String inst) {
         String[] instructionArray = inst.split(" ");
-        return instructionMap.get(instructionArray[0]) + "0000"  + String.format("%10s", Integer.toBinaryString(Integer.parseInt(instructionArray[1].substring(1)))).replace(' ', '0');
+        return instructionMap.get(instructionArray[0]) + "0000"  + decimalToBinary(instructionArray[1]);
     }
 
 
