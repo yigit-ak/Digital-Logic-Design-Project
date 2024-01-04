@@ -236,7 +236,7 @@ public class Assembler {
 
     public static String cmp(String inst) {
         String[] instructionArray = inst.split("[\\s,]+");
-        return instructionMap.get(instructionArray[0]) + registerMap.get(instructionArray[1]) + "000000"
+        return instructionMap.get(instructionArray[0]) + "0000" + registerMap.get(instructionArray[1]) + "00"
                 + registerMap.get(instructionArray[2]);
     }
 
