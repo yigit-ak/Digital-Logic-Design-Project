@@ -24,6 +24,7 @@ module register_file (
 
 endmodule
 
+// Testbench
 module register_file_tb();
 
   reg [17:0] data_to_write;
