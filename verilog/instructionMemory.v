@@ -1,18 +1,24 @@
 `timescale 1ns / 1ps
 module instructionMemory(
+// Input
 input [17:0] hexAddress,
+// Output
 output [17:0] dataO
 );
 reg [17:0] mem[0:262143];
+// file of input data
 parameter data_file = "C:/Users/Servisport/output.txt";
 
+// Read data from txt file
 integer i;
 initial begin
 $readmemh(data_file, mem);
 end
+// Assign output to be data in particular address
 assign dataO = mem[hexAddress];
 endmodule
 
+// Testbench
 module instructionMemory_tb();
 reg [17:0] hexAddress;
 wire [17:0] dataO;
