@@ -44,7 +44,7 @@ register_file dut(.data_to_write(data_to_write), .reg_to_write(reg_to_write), .r
 initial begin
 
 // Test1
-step clock = 0;
+clock = 0;
 data_to_write = 18'b000000000000000011;
 reg_to_write = 4'b0000;
 enable = 1;
